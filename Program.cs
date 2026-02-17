@@ -9,8 +9,12 @@ using ContactNS;
 using ContactNSPerson;
 
 Contact ct = new Contact();
-ct.Operations();
-ct.AddContact();
+
+while (true)
+{
+    ct.Operations();
+}
+
 
 
 namespace ContactNS
@@ -19,12 +23,12 @@ namespace ContactNS
     {
         void AddContact();
         void Search();
-
         void Operations();
     }
     public class Contact : IContact
     {
         string fileName = "contactPerson.json";
+        List<ContactPerson> contactPersons = new List<ContactPerson>();
 
         public void AddContact()
         {
@@ -46,10 +50,11 @@ namespace ContactNS
 
                 if (!File.Exists(fileName))
                 {
+                    //contactPersons.Add(contactPerson);
+
                     string fileData = JsonConvert.SerializeObject(contactPerson, Formatting.Indented);
 
                     File.WriteAllText(fileName, fileData);
-
 
                     Console.WriteLine("Saved to file");
                 }
@@ -62,12 +67,10 @@ namespace ContactNS
                                         
                     string fileData = JsonConvert.SerializeObject(contactPerson, Formatting.Indented);
 
-
                     File.AppendAllText(fileName, fileData);
 
                 }
 
-                Operations();
             }
         }
 
@@ -95,9 +98,12 @@ namespace ContactNS
                     }
 
                     JsonSerializer serializer = new JsonSerializer();
-                    ContactPerson CP = serializer.Deserialize<ContactPerson>(reader);
-
-                    contactPersons.Add(CP);
+                    
+                    ContactPerson? CP = serializer.Deserialize<ContactPerson>(reader);
+                    if (CP != null)
+                    {
+                        contactPersons.Add(CP);
+                    }
                 }
 
                 List<ContactPerson> cpAll = contactPersons.Where(p => p.Name == searchTxt).ToList();
@@ -113,14 +119,12 @@ namespace ContactNS
                 }
 
                 Console.WriteLine("");
-                Operations();
 
             }
             else
             {
                 Console.WriteLine("No data found");
                 Console.WriteLine("");
-                Operations();
 
             }
 
