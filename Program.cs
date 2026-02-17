@@ -9,7 +9,6 @@ using ContactNS;
 using ContactNSPerson;
 
 Contact ct = new Contact();
-
 while (true)
 {
     ct.Operations();
