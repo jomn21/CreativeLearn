@@ -60,8 +60,6 @@ namespace ContactNS
 
             string searchTxt = Console.ReadLine() ?? string.Empty;
 
-            IList<ContactPerson> contactPersons = new List<ContactPerson>();
-
             var results = GetAll().Where(p => p.Name.Contains(searchTxt, StringComparison.OrdinalIgnoreCase));
 
             foreach (var p in results)
