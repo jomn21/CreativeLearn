@@ -1,20 +1,18 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿//using System.Text.Json;
+using ContactNS;
+using ContactNSPerson;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Data;
 using System.Net.Http.Json;
-//using System.Text.Json;
-using ContactNS;
-using ContactNSPerson;
+using System.Xml.Linq;
 
 Contact ct = new Contact();
 while (true)
 {
     ct.Operations();
 }
-
-
 
 namespace ContactNS
 {
@@ -29,6 +27,7 @@ namespace ContactNS
         string fileName = "contactPerson.json";
         List<ContactPerson> contactPersons = new List<ContactPerson>();
 
+        
         public void AddContact()
         {
             {
@@ -46,30 +45,12 @@ namespace ContactNS
                 Console.WriteLine("Enter Phone");
                 contactPerson.Phone = Console.ReadLine() ?? string.Empty;
 
+                List<ContactPerson> contactPersons = GetAll();
 
-                if (!File.Exists(fileName))
-                {
-                    //contactPersons.Add(contactPerson);
+                contactPersons.Add(contactPerson);
 
-                    string fileData = JsonConvert.SerializeObject(contactPerson, Formatting.Indented);
-
-                    File.WriteAllText(fileName, fileData);
-
-                    Console.WriteLine("Saved to file");
-                }
-                else
-                {
-
-                    IList<ContactPerson> contactPersons = new List<ContactPerson>();
-
-                    string jsonContact = File.ReadAllText(fileName);
-                                        
-                    string fileData = JsonConvert.SerializeObject(contactPerson, Formatting.Indented);
-
-                    File.AppendAllText(fileName, fileData);
-
-                }
-
+                string json = JsonConvert.SerializeObject(contactPersons, Formatting.Indented);
+                File.WriteAllText(fileName, json);                
             }
         }
 
@@ -81,52 +62,10 @@ namespace ContactNS
 
             IList<ContactPerson> contactPersons = new List<ContactPerson>();
 
-            if (File.Exists(fileName))
-            {
-                string jsonContact = File.ReadAllText(fileName);
+            var results = GetAll().Where(p => p.Name.Contains(searchTxt, StringComparison.OrdinalIgnoreCase));
 
-
-                JsonTextReader reader = new JsonTextReader(new StringReader(jsonContact));
-                reader.SupportMultipleContent = true;
-
-                while (true)
-                {
-                    if (!reader.Read())
-                    {
-                        break;
-                    }
-
-                    JsonSerializer serializer = new JsonSerializer();
-                    
-                    ContactPerson? CP = serializer.Deserialize<ContactPerson>(reader);
-                    if (CP != null)
-                    {
-                        contactPersons.Add(CP);
-                    }
-                }
-
-                List<ContactPerson> cpAll = contactPersons.Where(p => p.Name == searchTxt).ToList();
-
-                foreach (ContactPerson cp in cpAll)
-                {
-                    Console.WriteLine("Searched Name " + cp.Name + " Age " + cp.Age);
-                }
-
-                if (cpAll.Count == 0)
-                {
-                    Console.WriteLine("No data found");
-                }
-
-                Console.WriteLine("");
-
-            }
-            else
-            {
-                Console.WriteLine("No data found");
-                Console.WriteLine("");
-
-            }
-
+            foreach (var p in results)
+                Console.WriteLine($"Found: {p.Name}, Age: {p.Age}");                       
 
         }
 
@@ -138,7 +77,6 @@ namespace ContactNS
             Console.WriteLine("Enter 2 for Search Contact");
             Console.WriteLine("");
 
-
             string op = Console.ReadLine();
             if (op == "1")
             {
@@ -148,6 +86,12 @@ namespace ContactNS
             {
                 Search();
             }
+        }
+        public List<ContactPerson> GetAll()
+        {
+            if (!File.Exists(fileName)) return new List<ContactPerson>();
+            string json = File.ReadAllText(fileName);
+            return JsonConvert.DeserializeObject<List<ContactPerson>>(json) ?? new List<ContactPerson>();
         }
     }
 }
