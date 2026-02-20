@@ -2,11 +2,8 @@
 using ContactNS;
 using ContactNSPerson;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System;
 using System.Data;
-using System.Net.Http.Json;
-using System.Xml.Linq;
+using Services;
 
 Contact ct = new Contact();
 while (true)
@@ -50,7 +47,9 @@ namespace ContactNS
                 contactPersons.Add(contactPerson);
 
                 string json = JsonConvert.SerializeObject(contactPersons, Formatting.Indented);
-                File.WriteAllText(fileName, json);                
+
+                ContactService contactService = new ContactService(new PersistanceService("file"));
+                contactService.SaveContact(fileName, json);
             }
         }
 
