@@ -16,7 +16,7 @@ namespace ContactNS
     public interface IContact
     {
         void AddContact();
-        void Search();
+        void Search(); 
         void Operations();
     }
     public class Contact : IContact
