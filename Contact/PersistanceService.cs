@@ -4,16 +4,16 @@ namespace Services
 {
     public class PersistanceService
     {
-        string _type;
+        string _fileName;
         
-        public PersistanceService(string type)
+        public PersistanceService(string fileName)
         {
-            _type = type;
+            _fileName = fileName;
             
         }
-        public void SaveToFile(string fileName, string json)
+        public void SaveToFile(string json)
         {
-            File.WriteAllText(fileName, json);
+            File.WriteAllText(_fileName, json);
         }
     }
 }

@@ -14,9 +14,9 @@ namespace Services
         {
             _persistanceService= persistanceService;
         }
-        public void SaveContact(string fileName, string json)
+        public void SaveContact(string json)
         {
-            _persistanceService.SaveToFile(fileName, json);
+            _persistanceService.SaveToFile(json);
         }
 
     }
