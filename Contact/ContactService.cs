@@ -16,7 +16,7 @@ namespace Services
         }
         public void SaveContact(string fileName, string json)
         {
-            _persistanceService.SaveService(fileName, json);
+            _persistanceService.SaveToFile(fileName, json);
         }
 
     }

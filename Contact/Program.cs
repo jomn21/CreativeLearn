@@ -48,7 +48,8 @@ namespace ContactNS
 
                 string json = JsonConvert.SerializeObject(contactPersons, Formatting.Indented);
 
-                ContactService contactService = new ContactService(new PersistanceService("file"));
+                PersistanceService persistanceService = new PersistanceService("file");
+                ContactService contactService = new ContactService(persistanceService);
                 contactService.SaveContact(fileName, json);
             }
         }
