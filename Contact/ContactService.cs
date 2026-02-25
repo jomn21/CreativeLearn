@@ -18,6 +18,10 @@ namespace Services
         {
             _persistanceService.SaveToFile(json);
         }
+        public string GetContact()
+        {
+            return _persistanceService.ReadFile();
+        }
 
     }
 }

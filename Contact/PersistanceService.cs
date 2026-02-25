@@ -15,5 +15,9 @@ namespace Services
         {
             File.WriteAllText(_fileName, json);
         }
+        public string ReadFile()
+        {
+            return File.ReadAllText(_fileName);
+        }
     }
 }

@@ -88,7 +88,11 @@ namespace ContactNS
         public List<ContactPerson> GetAll()
         {
             if (!File.Exists(fileName)) return new List<ContactPerson>();
-            string json = File.ReadAllText(fileName);
+
+            PersistanceService persistanceService = new PersistanceService(fileName);
+            ContactService contactService = new ContactService(persistanceService);
+            string json = contactService.GetContact();
+
             return JsonConvert.DeserializeObject<List<ContactPerson>>(json) ?? new List<ContactPerson>();
         }
     }
