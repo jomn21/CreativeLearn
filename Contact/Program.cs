@@ -1,8 +1,5 @@
-﻿//using System.Text.Json;
-using ContactNS;
+﻿using ContactNS;
 using ContactNSPerson;
-using Newtonsoft.Json;
-using System.Data;
 using Services;
 
 Contact ct = new Contact();
@@ -21,10 +18,8 @@ namespace ContactNS
     }
     public class Contact : IContact
     {
-        string fileName = "contactPerson.json";
+        static string fileName = "contactPerson.json";
         List<ContactPerson> contactPersons = new List<ContactPerson>();
-
-        
         public void AddContact()
         {
             {
@@ -46,21 +41,22 @@ namespace ContactNS
 
                 contactPersons.Add(contactPerson);
 
-                string json = JsonConvert.SerializeObject(contactPersons, Formatting.Indented);
-
-                PersistanceService persistanceService = new PersistanceService(fileName);
+                IPersistanceService persistanceService = new FilePersistanceService(fileName);
                 ContactService contactService = new ContactService(persistanceService);
-                contactService.SaveContact(json);
+
+                contactService.SaveContact(contactPersons);
             }
         }
-
         public void Search()
         {
             Console.WriteLine("Enter name to search..");
 
             string searchTxt = Console.ReadLine() ?? string.Empty;
 
-            var results = GetAll().Where(p => p.Name.Contains(searchTxt, StringComparison.OrdinalIgnoreCase));
+            IPersistanceService persistanceService = new FilePersistanceService(fileName);
+            ContactService contactService = new ContactService(persistanceService);
+
+            var results = contactService.SearchByName(searchTxt);
 
             foreach (var p in results)
                 Console.WriteLine($"Found: {p.Name}, Age: {p.Age}");                       
@@ -89,11 +85,10 @@ namespace ContactNS
         {
             if (!File.Exists(fileName)) return new List<ContactPerson>();
 
-            PersistanceService persistanceService = new PersistanceService(fileName);
+            IPersistanceService persistanceService = new FilePersistanceService(fileName);
             ContactService contactService = new ContactService(persistanceService);
-            string json = contactService.GetContact();
 
-            return JsonConvert.DeserializeObject<List<ContactPerson>>(json) ?? new List<ContactPerson>();
+            return contactService.GetAllContacts();
         }
     }
 }

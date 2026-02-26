@@ -1,27 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ContactNSPerson;
+using Newtonsoft.Json;
 
 namespace Services
 {
 
     public class ContactService
     {
-        PersistanceService _persistanceService; 
-        public ContactService(PersistanceService persistanceService)
+        IPersistanceService _persistanceService; 
+        public ContactService(IPersistanceService persistanceService)
         {
             _persistanceService= persistanceService;
         }
-        public void SaveContact(string json)
+        public void SaveContact(List<ContactPerson> contactPersons)
         {
-            _persistanceService.SaveToFile(json);
+            string json = JsonConvert.SerializeObject(contactPersons, Formatting.Indented);
+            _persistanceService.Save(json);
         }
-        public string GetContact()
+        public List<ContactPerson> GetAllContacts()
         {
-            return _persistanceService.ReadFile();
+            string allContacts = _persistanceService.Get();
+            return JsonConvert.DeserializeObject<List<ContactPerson>>(allContacts) ?? new List<ContactPerson>();
         }
-
+        public List<ContactPerson> SearchByName(string searchTxt)
+        {
+            return GetAllContacts().Where(p => p.Name.Contains(searchTxt, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
     }
 }
