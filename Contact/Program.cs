@@ -2,7 +2,7 @@
 using ContactNSPerson;
 using Services;
 
-Contact ct = new Contact();
+ContactManager ct = new ContactManager();
 while (true)
 {
     ct.Operations();
@@ -10,13 +10,8 @@ while (true)
 
 namespace ContactNS
 {
-    public interface IContact
-    {
-        void AddContact();
-        void Search(); 
-        void Operations();
-    }
-    public class Contact : IContact
+    
+    public class ContactManager
     {
         static string fileName = "contactPerson.json";
         List<ContactPerson> contactPersons = new List<ContactPerson>();

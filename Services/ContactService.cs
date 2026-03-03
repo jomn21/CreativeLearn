@@ -13,8 +13,21 @@ namespace Services
         }
         public void SaveContact(List<ContactPerson> contactPersons)
         {
+            
             string json = JsonConvert.SerializeObject(contactPersons, Formatting.Indented);
+            try
+            {
+                if (string.IsNullOrEmpty(json))
+                {
+                    throw new ArgumentException("No contacts to save.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Error saving contacts: " + ex.Message);
+            }
             _persistanceService.Save(json);
+            
         }
         public List<ContactPerson> GetAllContacts()
         {
