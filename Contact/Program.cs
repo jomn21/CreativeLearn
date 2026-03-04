@@ -1,8 +1,8 @@
-﻿using ContactNS;
-using ContactNSPerson;
+﻿using ContactManager.Utility;
+using ContactNS;
 using Services;
 
-ContactManager ct = new ContactManager();
+ContactManagerConsole ct = new ContactManagerConsole();
 while (true)
 {
     ct.Operations();
@@ -11,7 +11,7 @@ while (true)
 namespace ContactNS
 {
     
-    public class ContactManager
+    public class ContactManagerConsole
     {
         static string fileName = "contactPerson.json";
         List<ContactPerson> contactPersons = new List<ContactPerson>();
@@ -36,10 +36,21 @@ namespace ContactNS
 
                 contactPersons.Add(contactPerson);
 
-                IPersistanceService persistanceService = new FilePersistanceService(fileName);
+                IPersistanceService persistanceService = new DBPersistanceService(fileName);
                 ContactService contactService = new ContactService(persistanceService);
 
-                contactService.SaveContact(contactPersons);
+                try
+                {
+                    contactService.SaveContact(contactPersons);
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine("Validation "+ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Exception " + ex.Message);
+                }
             }
         }
         public void Search()
@@ -48,7 +59,7 @@ namespace ContactNS
 
             string searchTxt = Console.ReadLine() ?? string.Empty;
 
-            IPersistanceService persistanceService = new FilePersistanceService(fileName);
+            IPersistanceService persistanceService = new DBPersistanceService(fileName);
             ContactService contactService = new ContactService(persistanceService);
 
             var results = contactService.SearchByName(searchTxt);
@@ -80,7 +91,7 @@ namespace ContactNS
         {
             if (!File.Exists(fileName)) return new List<ContactPerson>();
 
-            IPersistanceService persistanceService = new FilePersistanceService(fileName);
+            IPersistanceService persistanceService = new DBPersistanceService(fileName);
             ContactService contactService = new ContactService(persistanceService);
 
             return contactService.GetAllContacts();

@@ -1,4 +1,4 @@
-﻿using ContactNSPerson;
+﻿using ContactManager.Utility;
 using Newtonsoft.Json;
 
 namespace Services
@@ -13,6 +13,13 @@ namespace Services
         }
         public void SaveContact(List<ContactPerson> contactPersons)
         {
+            foreach (ContactPerson contactPerson in contactPersons)
+            {
+                if(string.IsNullOrEmpty(contactPerson.Name))
+                {
+                    throw new ArgumentException("Name cannot be empty.");
+                }
+            }
             
             string json = JsonConvert.SerializeObject(contactPersons, Formatting.Indented);
             try

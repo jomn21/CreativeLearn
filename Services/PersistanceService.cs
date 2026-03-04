@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ContactManager.Infrastructure;
 
 namespace Services
 {
@@ -35,11 +36,16 @@ namespace Services
         }
         public void Save(string json)
         {
-            File.WriteAllText(_fileName, json);
+            ContactRespository contactRespository = new ContactRespository();
+            contactRespository.Save(json);
         }
         public string Get()
         {
-            return File.ReadAllText(_fileName);
+            
+            ContactRespository contactRespository = new ContactRespository();
+
+            return contactRespository.Get();
+            
         }
     }
 }

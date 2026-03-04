@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ContactNSPerson
+namespace ContactManager.Utility
 {
     public class ContactPerson
-    {
+    {        
         public string? Name { get; set; } 
         public string? Age { get; set; }
         public string? Country { get; set; }

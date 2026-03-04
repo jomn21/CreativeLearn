@@ -10,4 +10,9 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ContactManager.Infrastructure\ContactManager.Infrastructure.csproj" />
+    <ProjectReference Include="..\ContactManager.Utility\ContactManager.Utility.csproj" />
+  </ItemGroup>
+
 </Project>
