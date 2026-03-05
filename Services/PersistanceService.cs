@@ -1,12 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using ContactManager.Infrastructure;
+﻿using ContactManager.Infrastructure;
+using ContactManager.Utility;
+using System.ComponentModel.DataAnnotations;
 
 namespace Services
 {
     public interface IPersistanceService
     {
-        void Save(string json);
-        string Get();
+        void Save(ContactPerson contactPerson);
+        List<ContactPerson> GetAll();
     }
     public class FilePersistanceService: IPersistanceService
     {
@@ -14,16 +15,14 @@ namespace Services
         
         public FilePersistanceService(string fileName)
         {
-            _fileName = fileName;
-            
+            _fileName = fileName;            
         }
-        public void Save(string json)
+        public void Save(ContactPerson contactPerson)
         {
-            File.WriteAllText(_fileName, json);
         }
-        public string Get()
+        public List<ContactPerson> GetAll()
         {
-            return File.ReadAllText(_fileName);
+            return new List<ContactPerson>();
         }
     }
     public class DBPersistanceService : IPersistanceService
@@ -34,17 +33,17 @@ namespace Services
             _fileName = fileName;
 
         }
-        public void Save(string json)
+        public void Save(ContactPerson contactPerson)
         {
             ContactRespository contactRespository = new ContactRespository();
-            contactRespository.Save(json);
+            contactRespository.Save(contactPerson);
         }
-        public string Get()
+        public List<ContactPerson> GetAll()
         {
             
             ContactRespository contactRespository = new ContactRespository();
 
-            return contactRespository.Get();
+            return contactRespository.GetAll();
             
         }
     }

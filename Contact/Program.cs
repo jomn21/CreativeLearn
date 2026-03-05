@@ -34,14 +34,13 @@ namespace ContactNS
 
                 List<ContactPerson> contactPersons = GetAll();
 
-                contactPersons.Add(contactPerson);
 
                 IPersistanceService persistanceService = new DBPersistanceService(fileName);
                 ContactService contactService = new ContactService(persistanceService);
 
                 try
                 {
-                    contactService.SaveContact(contactPersons);
+                    contactService.SaveContact(contactPerson);
                 }
                 catch (ArgumentException ex)
                 {

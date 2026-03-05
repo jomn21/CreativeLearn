@@ -15,9 +15,11 @@ namespace ContactManager.Infrastructure
         {
             _connection = ConfigurationManager.ConnectionStrings["ContactManagerDb"].ConnectionString;
         }
-        public string Get()
+        public List<ContactPerson> GetAll()
         {
             string jsonResult = string.Empty;
+
+            List<ContactPerson> contactPersons = new List<ContactPerson>();
 
             using (var connection = new SqliteConnection(_connection))
             {
@@ -28,25 +30,27 @@ namespace ContactManager.Infrastructure
                 {
                     using (var reader = command.ExecuteReader())
                     {
-                        var dataTable = new DataTable();
-                        dataTable.Load(reader);
-
-                        jsonResult = JsonConvert.SerializeObject(dataTable, Formatting.Indented);
+                        while (reader.Read())
+                        {
+                            contactPersons.Add(new ContactPerson
+                            {
+                                Name = reader.GetString(0),
+                                Age = reader.GetString(1),
+                                Country = reader.GetString(2),
+                                Phone = reader.GetString(3)
+                            });
+                        }
                     }
                 }
             }
-            return jsonResult;
+            return contactPersons;
         }
-        public void Save(string json)
+        public void Save(ContactPerson person)
         {
-            List<ContactPerson> contactPerson = JsonConvert.DeserializeObject<List<ContactPerson>>(json);
-
             using (SqliteConnection connectionSq = new SqliteConnection(_connection))
             {
                 connectionSq.Open();
-                foreach (var person in contactPerson)
-                {
-                    string checkIfExistsQuery = "SELECT COUNT(*) FROM Contact WHERE Name = @Name";
+                string checkIfExistsQuery = "SELECT COUNT(*) FROM Contact WHERE Name = @Name";
                     using (SqliteCommand checkCommand = new SqliteCommand(checkIfExistsQuery, connectionSq))
                     {
                         checkCommand.Parameters.AddWithValue("@Name", person.Name);
@@ -67,8 +71,7 @@ namespace ContactManager.Infrastructure
                             }
                         }
                     }
-                }
-            }
+                }           
         }
     }
 }
