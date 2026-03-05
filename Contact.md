@@ -15,11 +15,17 @@ The access token received from the authorization server in the OAuth 2.0 flow.
 `/Contacts`
 
 
-#### Parameters
+#### Body
 
 | Name | Type | Required | Description |
 | :--- | :--- | :--- | :--- |
 | `Authorization` | `string` | Yes | Authorization. |
+
+#### Response
+| Name | Type | Description |
+| :--- | :--- | :--- |
+| `data` | `object[]` | object[]. |
+| `error` | `object[]` | object[]. |
 
 #### Example Request
 
@@ -33,6 +39,16 @@ fetch('https://localhost/Contacts', options)
   .catch(err => console.error(err));
 ```
 
+# Search Contact
+
+Search contact in the authenticated user's account. The response includes a Contact, containing details about a Contact.
+---
+
+## Authorizations
+
+The access token received from the authorization server in the OAuth 2.0 flow.
+
+
 ## Endpoints
 
 
@@ -45,6 +61,12 @@ fetch('https://localhost/Contacts', options)
 | :--- | :--- | :--- | :--- |
 | `Authorization` | `string` | Yes | Authorization. |
 | `keyword` | `string` | Yes | Keyword. |
+
+#### Response
+| Name | Type | Description |
+| :--- | :--- | :--- |
+| `data` | `object` | object. |
+| `error` | `object[]` | object[]. |
 
 #### Example Request
 

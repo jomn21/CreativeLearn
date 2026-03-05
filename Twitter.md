@@ -16,7 +16,7 @@ The access token received from the authorization server in the OAuth 2.0 flow.
 `POST/2/tweets`
 
 
-#### Parameters
+#### Body
 
 
 | Name | Type | Required | Description |
@@ -27,6 +27,23 @@ The access token received from the authorization server in the OAuth 2.0 flow.
 | `community_id` | `string` | No | The unique identifier of this Community. |
 | `direct_message_deep_link` | `string` | No | Link to take the conversation from the public timeline to a private Direct Message.
 . |
+| `edit_options` | `object` | No | object. |
+| `for_super_followers_only` | `boolean` | No | boolean. |
+| `geo` | `object` | No | object. |
+| `media` | `object` | No | object. |
+| `nullcast` | `boolean` | No | boolean. |
+| `poll` | `object` | No | object. |
+| `quote_tweet_id` | `string` | No | string. |
+| `reply` | `object` | No | object. |
+| `reply_settings` | `enum<string>` | No | enum<string>. |
+| `share_with_followers` | `boolean` | No | boolean. |
+| `text` | `string` | No | string
+
+#### Response
+| Name | Type | Description |
+| :--- | :--- | :--- |
+| `data` | `object` | data. |
+| `error` | `object[]` | object[]. |
 
 #### Example Request
 
