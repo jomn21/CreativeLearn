@@ -1,6 +1,6 @@
-# Get all Contacts
+# Create Contact
 
-Get all Contacts in the authenticated user's account. The response includes a list of Contacts, each containing details about a Contact.
+Create Contact in the authenticated user's account.
 ---
 
 ## Authorizations
@@ -52,6 +52,10 @@ fetch('https://localhost/CreateContact', options)
   .catch(err => console.error(err));
 ```
 
+# Get all Contacts
+
+Get all Contacts in the authenticated user's account. The response includes a list of Contacts, each containing details about a Contact.
+---
 
 `/Contacts`
 
