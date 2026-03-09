@@ -52,38 +52,6 @@ fetch('https://localhost/CreateContact', options)
   .catch(err => console.error(err));
 ```
 
-# Get all Contacts
-
-Get all Contacts in the authenticated user's account. The response includes a list of Contacts, each containing details about a Contact.
----
-
-`/Contacts`
-
-
-#### Body
-
-| Name | Type | Required | Description |
-| :--- | :--- | :--- | :--- |
-| `Authorization` | `string` | Yes | Authorization. |
-
-#### Response
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `data` | `object[]` | object[]. |
-| `error` | `object[]` | object[]. |
-
-#### Example Request
-
-```python
-javascript
-const options = {method: 'GET', headers: {Authorization: 'Bearer <token>'}};
-
-fetch('https://localhost/Contacts', options)
-  .then(res => res.json())
-  .then(res => console.log(res))
-  .catch(err => console.error(err));
-```
-
 # Search Contact
 
 Search contact in the authenticated user's account. The response includes a Contact, containing details about a Contact.
@@ -122,3 +90,35 @@ fetch('https://localhost/Contacts/Name={keyword}', options)
   .then(res => res.json())
   .then(res => console.log(res))
   .catch(err => console.error(err));
+  ```
+# Get all Contacts
+
+Get all Contacts in the authenticated user's account. The response includes a list of Contacts, each containing details about a Contact.
+---
+
+`/Contacts`
+
+
+#### Body
+
+| Name | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `Authorization` | `string` | Yes | Authorization. |
+
+#### Response
+| Name | Type | Description |
+| :--- | :--- | :--- |
+| `data` | `object[]` | object[]. |
+| `error` | `object[]` | object[]. |
+
+#### Example Request
+
+```python
+javascript
+const options = {method: 'GET', headers: {Authorization: 'Bearer <token>'}};
+
+fetch('https://localhost/Contacts', options)
+  .then(res => res.json())
+  .then(res => console.log(res))
+  .catch(err => console.error(err));
+```
