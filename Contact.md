@@ -23,13 +23,6 @@ The access token received from the authorization server in the OAuth 2.0 flow.
 | `Country` | `string` | No | Country. |
 | `Phone` | `string` | No | Phone. |
 
-
-#### Response
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `data` | `object[]` | object[]. |
-| `error` | `object[]` | object[]. |
-
 #### Example Request
 
 ```python
@@ -52,6 +45,26 @@ fetch('https://localhost/CreateContact', options)
   .catch(err => console.error(err));
 ```
 
+#### Response
+| Name | Type | Description |
+| :--- | :--- | :--- |
+| `data` | `object` | object. |
+| `error` | `object` | `object`. |
+
+#### Example Response
+
+``` "
+{
+data": {
+    "success": "true"    
+  },
+  "error": 
+    {
+      "title": "<string>"
+     }
+      "
+  }
+  ```
 # Search Contact
 
 Search contact in the authenticated user's account. The response includes a Contact, containing details about a Contact.
@@ -75,11 +88,6 @@ The access token received from the authorization server in the OAuth 2.0 flow.
 | `Authorization` | `string` | Yes | Authorization. |
 | `keyword` | `string` | Yes | Keyword. |
 
-#### Response
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `data` | `object` | object. |
-| `error` | `object[]` | object[]. |
 
 #### Example Request
 
@@ -91,34 +99,28 @@ fetch('https://localhost/Contacts/Name={keyword}', options)
   .then(res => console.log(res))
   .catch(err => console.error(err));
   ```
-# Get all Contacts
-
-Get all Contacts in the authenticated user's account. The response includes a list of Contacts, each containing details about a Contact.
----
-
-`/Contacts`
-
-
-#### Body
-
-| Name | Type | Required | Description |
-| :--- | :--- | :--- | :--- |
-| `Authorization` | `string` | Yes | Authorization. |
-
 #### Response
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `data` | `object[]` | object[]. |
-| `error` | `object[]` | object[]. |
+| `data` | object | object. |
+| `error` | object | object. |
 
-#### Example Request
+#### Example Response
 
-```python
-javascript
-const options = {method: 'GET', headers: {Authorization: 'Bearer <token>'}};
+``` "
+{
+data": {
+    "Name": "",
+    "Age": "",
+    "Country": "",
+    "Phone": ""
+  },
+  "error": 
+    {
+      "title": "<string>"
+     }
+      "
+  }
+  ```
 
-fetch('https://localhost/Contacts', options)
-  .then(res => res.json())
-  .then(res => console.log(res))
-  .catch(err => console.error(err));
-```
+
