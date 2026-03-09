@@ -55,14 +55,14 @@ fetch('https://localhost/CreateContact', options)
 
 ``` "
 {
-data": {
+"data": {
     "success": "true"    
   },
   "error": 
     {
       "title": "<string>"
      }
-      "
+      
   }
   ```
 # Search Contact
@@ -109,7 +109,7 @@ fetch('https://localhost/Contacts/Name={keyword}', options)
 
 ``` "
 {
-data": {
+"data": {
     "Name": "",
     "Age": "",
     "Country": "",
@@ -119,7 +119,7 @@ data": {
     {
       "title": "<string>"
      }
-      "
+      
   }
   ```
 
