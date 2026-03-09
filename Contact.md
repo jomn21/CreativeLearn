@@ -110,10 +110,10 @@ fetch('https://localhost/Contacts/Name={keyword}', options)
 ``` "
 {
 "data": {
-    "Name": "",
-    "Age": "",
-    "Country": "",
-    "Phone": ""
+    "Name": "Test",
+    "Age": "22",
+    "Country": "AU",
+    "Phone": "1213"
   },
   "error": 
     {
