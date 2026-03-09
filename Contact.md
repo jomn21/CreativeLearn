@@ -10,6 +10,47 @@ The access token received from the authorization server in the OAuth 2.0 flow.
 ---
 
 ## Endpoints
+`/CreateContact`
+
+
+#### Body
+
+| Name | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `Authorization` | `string` | Yes | Authorization. |
+| `Name` | `string` | Yes | Name. |
+| `Age` | `string` | No | Age. |
+| `Country` | `string` | No | Country. |
+| `Phone` | `string` | No | Phone. |
+
+
+#### Response
+| Name | Type | Description |
+| :--- | :--- | :--- |
+| `data` | `object[]` | object[]. |
+| `error` | `object[]` | object[]. |
+
+#### Example Request
+
+```python
+javascript
+const options = {
+  method: 'POST',
+  headers: {Authorization: 'Bearer <token>', 'Content-Type': 'application/json'},
+  body: JSON.stringify({
+    Name: '<string>',
+    Age: '<string>',
+    Country: '<string>',
+    Phone: '<string>'
+  })
+};
+
+
+fetch('https://localhost/CreateContact', options)
+  .then(res => res.json())
+  .then(res => console.log(res))
+  .catch(err => console.error(err));
+```
 
 
 `/Contacts`
