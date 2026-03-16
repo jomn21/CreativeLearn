@@ -10,14 +10,15 @@ The access token received from the authorization server in the OAuth 2.0 flow.
 ---
 
 ## Endpoints
-`/CreateContact`
+`POST/v2/contacts`
+
+| `Authorization` | `string` | Yes | Authorization. |
 
 
 #### Body
 
 | Name | Type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `Authorization` | `string` | Yes | Authorization. |
 | `Name` | `string` | Yes | Name. |
 | `Age` | `string` | No | Age. |
 | `Country` | `string` | No | Country. |
@@ -39,7 +40,7 @@ const options = {
 };
 
 
-fetch('https://localhost/CreateContact', options)
+fetch('POST/v2/contacts', options)
   .then(res => res.json())
   .then(res => console.log(res))
   .catch(err => console.error(err));
@@ -80,12 +81,12 @@ The access token received from the authorization server in the OAuth 2.0 flow.
 
 `/Contacts/Name={keyword}`
 
+| `Authorization` | `string` | Yes | Authorization. |
 
 #### Parameters
 
 | Name | Type | Required | Description |
 | :--- | :--- | :--- | :--- |
-| `Authorization` | `string` | Yes | Authorization. |
 | `keyword` | `string` | Yes | Keyword. |
 
 
