@@ -10,7 +10,7 @@ The access token received from the authorization server in the OAuth 2.0 flow.
 ---
 
 ## Endpoints
-`POST/v2/contacts`
+`POST/v1/contacts`
 
 | `Authorization` | `string` | Yes | Authorization. |
 
