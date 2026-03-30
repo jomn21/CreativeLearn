@@ -45,7 +45,6 @@ fetch('POST/v2/contacts', options)
   .then(res => console.log(res))
   .catch(err => console.error(err));
 ```
-
 #### Response
 | Name | Type | Description |
 | :--- | :--- | :--- |
